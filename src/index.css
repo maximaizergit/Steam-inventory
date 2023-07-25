@@ -224,6 +224,7 @@ footer {
 .buttons-container {
   display: flex;
   min-height: 75px;
+  max-height: 200px;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -259,6 +260,116 @@ footer {
 }
 
 .expanded .additional-tools {
-  height: 90%;
+  height: auto;
   opacity: 1;
+}
+@media (max-width: 600px) {
+  .menu-block {
+    height: 140px;
+  }
+  .expanded {
+    height: 220px;
+  }
+}
+
+/* AuthPage.css */
+
+/* Стили для контейнера */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 90px;
+}
+
+/* Стили для формы */
+.form-container {
+  background-color: #5e16a7;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f9f9f9;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: white;
+  padding-right: 20px;
+}
+
+.form-container input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-container button {
+  background-color: #f9f9f9;
+  color: #5e16a7;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: rgb(189, 186, 191);
+}
+
+/* Стили для кнопки переключения формы */
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  color: #5e16a7;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+@keyframes flipAnimation {
+  0% {
+    opacity: 1;
+    transform: perspective(600px) rotateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(600px) rotateY(180deg);
+  }
+}
+
+/* Контейнер для переворачиваемой формы */
+.flip-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+/* Формы внутри контейнера */
+.form-container {
+  transition: opacity 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.flipped {
+  animation: flipAnimation 0.5s ease-in-out; /* Применяем анимацию переключения формы */
 }
