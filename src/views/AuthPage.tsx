@@ -2,23 +2,31 @@ import React, { useState } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
 
+interface FormData {
+  email: string;
+  password: string;
+  name?: string; // Поле "name" может быть опциональным
+}
+
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
   const [isFlipped, setIsFlipped] = useState(false);
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Формируем данные для отправки на бэкенд
-    const formData = {
-      username: username,
-      password: password,
-    };
+
+    // Определяем, отправлять данные для авторизации или регистрации
+    const apiUrl = isLoginForm
+      ? "http://example.com/api/signin"
+      : "http://example.com/api/signup";
 
     // Отправляем POST-запрос на бэкенд
     axios
-      .post("http://example.com/api/login", formData) // Замените URL на адрес вашего бэкенда
+      .post(apiUrl, formData)
       .then((response) => {
         // Обработка успешного ответа от бэкенда
         console.log(response.data);
@@ -37,6 +45,11 @@ const AuthPage = () => {
     }, 380);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
   return (
     <Layout>
       <div className="container">
@@ -45,13 +58,26 @@ const AuthPage = () => {
         <div className={`form-container ${isFlipped ? "flipped" : ""}`}>
           <h1>{isLoginForm ? "Авторизация" : "Регистрация"}</h1>
           <form onSubmit={handleSubmit}>
+            {!isLoginForm && (
+              <div className="form-group">
+                <label htmlFor="name">Имя:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
             <div className="form-group">
-              <label htmlFor="username">Логин:</label>
+              <label htmlFor="email">Email:</label>
               <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group">
@@ -59,8 +85,9 @@ const AuthPage = () => {
               <input
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
               />
             </div>
             {isLoginForm ? (

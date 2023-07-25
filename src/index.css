@@ -280,7 +280,7 @@ footer {
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-top: 90px;
+  margin-top: 40px;
 }
 
 /* Стили для формы */
@@ -291,6 +291,7 @@ footer {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
+  min-height: 353px;
 }
 
 .form-container h1 {
