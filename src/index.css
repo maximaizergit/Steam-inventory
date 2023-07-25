@@ -1,13 +1,204 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Header.css */
+
+/* Основные стили для header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10vh;
+  min-height: 50px;
+  max-height: 100px;
+  background-color: #5e16a7;
+  padding: 0 20px;
+  color: #fff;
+}
+
+.header-logo {
+  width: 100px;
+  height: 100%;
+  background-image: url("../public/appLogo.png");
+  background-size: contain; /* Масштабирует изображение так, чтобы оно полностью поместилось в элементе */
+  background-repeat: no-repeat; /* Запрещает повторение изображения */
+  background-position: center center; /* Центрирует изображение по горизонтали и вертикали */
+}
+
+.header-site-name {
+  font-size: 48px;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #5e16a7;
+  text-decoration: none;
+}
+
+.header-sidebar-toggle {
+  display: none; /* По умолчанию скрыта */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger-icon {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+}
+.header-auth-button {
+  display: none; /* По умолчанию скрыта */
+  width: 100px;
+  height: 100%;
+  background-image: url("../public/userIcon.avif");
+  background-size: contain; /* Масштабирует изображение так, чтобы оно полностью поместилось в элементе */
+  background-repeat: no-repeat; /* Запрещает повторение изображения */
+  background-position: center center; /* Центрирует изображение по горизонтали и вертикали */
+}
+
+/* Стили для нормальных устройств (ширина экрана больше 400px) */
+@media (min-width: 401px) {
+  .header-auth-button {
+    display: block; /* Показываем кнопку для авторизации */
+  }
+}
+/* Стили для мобильных устройств (ширина экрана меньше 400px) */
+@media (max-width: 400px) {
+  .header-site-name {
+    display: none; /* Скрываем название сайта */
+  }
+
+  .header-buttons {
+    display: none; /* Скрываем кнопки */
+  }
+
+  .header-sidebar-toggle {
+    display: block; /* Показываем кнопку для открытия сайдбара */
+  }
+
+  .hide-buttons .header-buttons {
+    display: flex; /* Показываем кнопки в сайдбаре */
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 10vh);
+    background-color: #5e16a7;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Выравнивание элементов по верхнему краю */
+    align-items: center;
+    color: #fff;
+    font-size: 24px;
+  }
+
+  .sidebar-link {
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-decoration: none; /* Убираем стили ссылки */
+    color: #fff; /* Цвет текста */
+  }
+  .header-sidebar-toggle {
+    display: flex; /* Показываем контейнер для "гамбургера" */
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .burger-icon {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+  }
+
+  .open .burger-icon:nth-child(1) {
+    transform: translateY(7px) rotate(45deg); /* Вращаем верхний "гамбургер" */
+  }
+
+  .open .burger-icon:nth-child(2) {
+    opacity: 0; /* Скрываем средний "гамбургер" */
+  }
+
+  .open .burger-icon:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg); /* Вращаем нижний "гамбургер" */
+  }
+}
+
+/* Footer.css */
+
+footer {
+  position: fixed; /* Футер будет закреплен на экране */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+  background-color: #5e16a7;
+  padding: 20px;
+  color: #fff;
+}
+
+.footer-links {
+  display: flex;
+}
+
+.footer-block {
+  margin-right: 20px;
+}
+
+.footer-block a {
+  display: block;
+  margin-bottom: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-icons {
+  display: flex;
+}
+
+.circle-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
