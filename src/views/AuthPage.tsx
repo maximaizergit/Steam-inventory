@@ -5,7 +5,7 @@ import axios from "axios";
 interface FormData {
   email: string;
   password: string;
-  name?: string; // Поле "name" может быть опциональным
+  name?: string;
 }
 
 const AuthPage = () => {
@@ -16,32 +16,33 @@ const AuthPage = () => {
   });
   const [isFlipped, setIsFlipped] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Определяем, отправлять данные для авторизации или регистрации
+  const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
     const apiUrl = isLoginForm
       ? "http://example.com/api/signin"
       : "http://example.com/api/signup";
 
-    // Отправляем POST-запрос на бэкенд
     axios
       .post(apiUrl, formData)
       .then((response) => {
-        // Обработка успешного ответа от бэкенда
+        // Handle successful response from the backend
         console.log(response.data);
       })
       .catch((error) => {
-        // Обработка ошибок
+        // Handle errors
         console.error(error);
       });
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    authenticateUser(isLoginForm, formData);
+  };
+
   const handleToggleForm = () => {
-    setIsFlipped(true); // Устанавливаем состояние для анимации переключения формы
+    setIsFlipped(true);
     setTimeout(() => {
-      setIsFlipped(false); // Через 0.5 секунды снимаем состояние для анимации
-      setIsLoginForm((prevIsLoginForm) => !prevIsLoginForm); // Переключаем значение состояния при завершении анимации
+      setIsFlipped(false);
+      setIsLoginForm((prevIsLoginForm) => !prevIsLoginForm);
     }, 380);
   };
 
@@ -53,8 +54,6 @@ const AuthPage = () => {
   return (
     <Layout>
       <div className="container">
-        {" "}
-        {/* Обертка для центрирования */}
         <div className={`form-container ${isFlipped ? "flipped" : ""}`}>
           <h1>{isLoginForm ? "Авторизация" : "Регистрация"}</h1>
           <form onSubmit={handleSubmit}>
