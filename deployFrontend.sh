@@ -14,20 +14,12 @@ screen -d -m -S react
 echo "Screen react started"
 
 # Войти в сеанс 'react'
-screen -r react
+screen -d -m -S react
 
-echo "Entered screen react"
+# Войти в сеанс 'react' и выполнить команды
+screen -S react -X stuff $'cd /var/www/html/frontend/\n'
+screen -S react -X stuff $'npm install\n'
+screen -S react -X stuff $'npm start\n'
 
-cd /var/www/html/frontend/
-
-# Установить зависимости с помощью npm
-npm install
-
-echo "npm install completed"
-
-# Запустить приложение с помощью npm
-npm start
-
-echo "npm started"
-
+echo "Commands executed inside screen react"
 echo "Deployment finished!"
