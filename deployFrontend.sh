@@ -13,6 +13,4 @@ fi
 # Install dependencies and start the React application
 npm install
 npm start&
-
-echo $! > pidfile
-echo "Deployment finished!"
+exit 0
