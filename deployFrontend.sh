@@ -3,11 +3,13 @@ set -e
 
 echo "Deployment started ..."
 
-screen -X -S react quit
+screen -X -S react quit || true
 
 echo "Screen react stopped"
 
-screen -S react
+screen -d -m -S react
+
+screen -r react
 
 echo "Screen react stated"
 
