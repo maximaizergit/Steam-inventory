@@ -10,7 +10,10 @@ if [ -f "pidfile" ] && ps -p "$(cat pidfile)" > /dev/null 2>&1; then
   npm stop
 fi
 
-# Install dependencies and start the React application
+# Install dependencies and start the React application in the background using nohup
 npm install
-npm start&
+nohup npm start > /dev/null 2>&1 &
+
+echo $! > pidfile
+echo "Deployment finished!"
 exit 0
