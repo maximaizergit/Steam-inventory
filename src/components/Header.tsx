@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -8,7 +9,9 @@ const Header: React.FC = () => {
   };
   return (
     <header>
-      <div className="header-logo"></div>
+      <Link to="/">
+        <div className="header-logo"></div>
+      </Link>
       {/* Скрытое название сайта */}
       <div className="header-site-name">SteamInventory</div>
       {/* Кнопка для открытия сайдбара */}
@@ -22,7 +25,7 @@ const Header: React.FC = () => {
       </button>
       <div className={`header-buttons ${isSidebarOpen ? "hide-buttons" : ""}`}>
         {/* Кнопки для перехода на страницу инвентаря и quicksell */}
-        <a className="header-button" href="/inventory">
+        <a className="header-button" href="/home">
           Инвентарь
         </a>
         <a className="header-button" href="/quicksell">
