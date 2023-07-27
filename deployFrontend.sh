@@ -1,14 +1,16 @@
 #!/bin/bash
 set -e
-NPM_PATH=/root/.nvm/versions/node/v18.17.0/bin/npm
+
+# Load nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 echo "Deployment started ..."
 if [ -f "pidfile" ] && ps -p "$(cat pidfile)" > /dev/null 2>&1; then
-  $NPM_PATH stop
+  npm stop
 fi
 
 # Install dependencies and start the React application
-$NPM_PATH install
-$NPM_PATH start &
-
+npm install
+npm start &
 echo "Deployment finished!"
