@@ -12,7 +12,8 @@ fi
 
 # Install dependencies and start the React application in the background using nohup
 npm install
-nohup npm start > /dev/null 2>&1 &
+
+nohup npm start > npm_start_log.txt 2>&1 &
 
 echo $! > pidfile
 echo "Deployment finished!"
