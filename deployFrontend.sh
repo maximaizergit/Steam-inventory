@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+cd /var/www/html/frontend
 # Load nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
