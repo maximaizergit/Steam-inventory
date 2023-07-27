@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
-
 interface FormData {
   email: string;
   password: string;
   name?: string;
 }
+const endpointUrl = process.env.REACT_APP_ENDPOINT_URL;
 
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -18,8 +18,8 @@ const AuthPage = () => {
 
   const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
     const apiUrl = isLoginForm
-      ? "http://example.com/api/signin"
-      : "http://example.com/api/signup";
+      ? endpointUrl + "/signin"
+      : endpointUrl + "/signup";
 
     axios
       .post(apiUrl, formData)
@@ -28,14 +28,24 @@ const AuthPage = () => {
         console.log(response.data);
       })
       .catch((error) => {
-        // Handle errors
+        console.log(apiUrl);
+        console.log(formData);
         console.error(error);
       });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    authenticateUser(isLoginForm, formData);
+
+    if (!isLoginForm && (!formData.name || formData.name.trim() === "")) {
+      alert("Пожалуйста, введите ваше имя.");
+      return;
+    }
+    const formDataToSend = isLoginForm
+      ? { email: formData.email, password: formData.password }
+      : formData;
+
+    authenticateUser(isLoginForm, formDataToSend);
   };
 
   const handleToggleForm = () => {
@@ -80,7 +90,7 @@ const AuthPage = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Пароль:</label>
+              <label htmlFor="password">{process.env.ENDPOINTURL}Пароль:</label>
               <input
                 type="password"
                 id="password"
