@@ -2,24 +2,11 @@
 set -e
 
 echo "Deployment started ..."
+            if [ -f \"pidfile\" ] && ps -p \$(cat pidfile) > /dev/null 2>&1; then
+              npm stop
+            fi
 
-# Остановить сеанс 'react', если он уже запущен
-screen -X -S react quit || true
-
-echo "Screen react stopped"
-
-# Запустить сеанс 'react' в фоновом режиме
-screen -d -m -S react
-
-echo "Screen react started"
-
-# Войти в сеанс 'react'
-screen -d -m -S react
-
-# Войти в сеанс 'react' и выполнить команды
-screen -S react -X stuff $'cd /var/www/html/frontend/\n'
-screen -S react -X stuff $'npm install\n'
-screen -S react -X stuff $'npm start\n'
-
-echo "Commands executed inside screen react"
+            # Install dependencies and start the React application
+            npm install
+            npm start &
 echo "Deployment finished!"
