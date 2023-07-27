@@ -5,14 +5,20 @@ echo "Deployment started ..."
 
 screen -X -S react quit
 
+echo "Screen react stopped"
+
 screen -S react
 
-cd /var/www/html/frontend
+echo "Screen react stated"
+
+cd /var/www/html/frontend/
 
 npm install
 
-npm run build
+echo "Start install npm install"
 
 npm start
+
+echo "Npm started"
 
 echo "Deployment finished!"
