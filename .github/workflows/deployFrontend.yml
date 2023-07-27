@@ -1,0 +1,53 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm i
+
+      # Install rsync
+      - name: Install rsync
+        run: sudo apt-get update && sudo apt-get install -y rsync
+
+      - name: Create SSH private key file
+        run: echo "$SSH_PRIVATE_KEY" > /tmp/deploy_key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Set permissions for SSH private key file
+        run: chmod 600 /tmp/deploy_key
+
+      - name: Deploy to server
+        uses: easingthemes/ssh-deploy@v2
+        with:
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SOURCE: ./
+          TARGET: /var/www/html/frontend
+
+      - name: Execute deploy.sh on remote server
+        run: |
+          ssh -tt -i /tmp/deploy_key ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "export TERM=xterm && bash -c 'cd /var/www/html/frontend && ./deploy.sh'"
+
+      - name: Cleanup SSH private key file
+        run: rm /tmp/deploy_key
