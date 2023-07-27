@@ -47,7 +47,7 @@ jobs:
 
       - name: Execute deploy.sh on remote server
         run: |
-          ssh -tt -i /tmp/deploy_key ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "export TERM=xterm && bash -c 'cd /var/www/html/frontend && ./deployFrontend.sh && npm start& && echo $! > pidfile '"
+          ssh -tt -i /tmp/deploy_key ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "export TERM=xterm && bash -c 'cd /var/www/html/frontend && ./deployFrontend.sh'"
 
       - name: Cleanup SSH private key file
         run: rm /tmp/deploy_key
