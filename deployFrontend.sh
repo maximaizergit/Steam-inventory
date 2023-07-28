@@ -5,7 +5,7 @@ set -e
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-echo "Deployment started ..."
+echo "Deployment started"
 
 npm install
 
