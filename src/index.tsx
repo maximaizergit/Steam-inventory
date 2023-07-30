@@ -4,6 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+const adScript = document.createElement("script");
+adScript.src =
+  "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5175113555248118";
+adScript.crossOrigin = "anonymous";
+adScript.addEventListener("load", () => {
+  console.log("Script loaded successfully.");
+});
+document.head.appendChild(adScript);
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
