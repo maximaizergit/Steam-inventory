@@ -1,0 +1,64 @@
+/* MenuBlock.css */
+
+.menu-block {
+  display: flex;
+  background-color: #5e16a7;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px; /* Задаем высоту блока в закрытом состоянии */
+  transition: height 0.3s ease, opacity 0.3s ease;
+  margin-top: 40px;
+  overflow: hidden;
+}
+
+.buttons-container {
+  display: flex;
+  min-height: 75px;
+  max-height: 200px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.menu-button {
+  height: 50px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #5e16a7;
+  text-decoration: none;
+}
+
+.additional-tools {
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  background-color: #4d1288;
+  color: #fff;
+  height: 0;
+  opacity: 0;
+}
+
+/* Анимация раскрытия */
+.expanded {
+  height: 200px; /* Задаем высоту блока в раскрытом состоянии */
+}
+
+.expanded .additional-tools {
+  height: auto;
+  opacity: 1;
+}
+@media (max-width: 600px) {
+  .menu-block {
+    height: 140px;
+  }
+  .expanded {
+    height: 220px;
+  }
+}

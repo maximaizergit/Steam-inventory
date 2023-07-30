@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
+import "../style/AuthPage.css";
 interface FormData {
   email: string;
   password: string;

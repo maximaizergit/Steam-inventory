@@ -1,0 +1,106 @@
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Две колонки, первая занимает 70% ширины, вторая - 30% */
+  margin-top: 30px;
+  margin-bottom: 130px; /* Отступ внизу */
+}
+.main-content h1,
+p {
+  font-family: "Open Sans", sans-serif;
+}
+
+.block {
+  background-color: #8a4bc1;
+  color: #fff;
+  padding: 20px;
+}
+
+.block:nth-child(2),
+.block:first-child {
+  background-color: #5e16a7;
+}
+
+.full {
+  grid-column: 1 / span 2; /* Занимаем две колонки */
+}
+
+.block-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 50px;
+}
+.block-content p {
+  font-size: 18px;
+}
+.circle-container {
+  display: flex;
+  overflow-x: hidden;
+  margin-top: -50px;
+  margin-left: -40px;
+  margin-bottom: -50px;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #5e16a7;
+  animation: move-circles 4s linear infinite;
+  flex-shrink: 0; /* Запрещаем уменьшение размера кружков */
+}
+
+@keyframes move-circles {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(-50px);
+  }
+  50% {
+    transform: translateY(0) translateX(0);
+  }
+  75% {
+    transform: translateY(-10px) translateX(40px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+.image-container {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 50px;
+  background-color: #fff;
+}
+
+/* Медиа-запрос для адаптации на мобильных устройствах */
+@media screen and (max-width: 868px) {
+  .main-content {
+    grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
+  }
+
+  .block {
+    grid-column: 1; /* Занимаем всю ширину колонки на мобильных устройствах */
+  }
+  .block-content {
+    margin-bottom: 0;
+  }
+}
+.custom-button {
+  font-size: 24px !important;
+  width: 400px;
+  height: 100px;
+  position: relative; /* Позиционирование должно быть указано для работы z-index */
+  z-index: 1; /* Установите значение z-index для кнопки */
+}
+@media screen and (max-width: 440px) {
+  .MuiButtonBase-root {
+    width: 100%;
+  }
+}

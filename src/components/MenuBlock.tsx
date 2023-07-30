@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../style/MenuBlock.css";
 
 const MenuBlock = () => {
   const [isExpanded, setExpanded] = useState(false);

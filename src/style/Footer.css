@@ -1,0 +1,47 @@
+/* Footer.css */
+
+footer {
+  position: fixed; /* Футер будет закреплен на экране */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  background-color: #5e16a7;
+  padding: 20px;
+  color: #fff;
+  z-index: -1;
+}
+
+.footer-links {
+  display: flex;
+}
+
+.footer-block {
+  margin-right: 20px;
+}
+
+.footer-block a {
+  display: block;
+  margin-bottom: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-icons {
+  display: flex;
+}
+
+.circle-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
