@@ -14,7 +14,7 @@ header {
 }
 
 .header-logo {
-  width: 100px;
+  width: 220px;
   height: 100%;
   background-image: url("../../public/appLogo.png");
   background-size: contain; /* Масштабирует изображение так, чтобы оно полностью поместилось в элементе */

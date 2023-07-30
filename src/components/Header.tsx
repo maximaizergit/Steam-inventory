@@ -14,7 +14,7 @@ const Header: React.FC = () => {
         <div className="header-logo"></div>
       </Link>
       {/* Скрытое название сайта */}
-      <div className="header-site-name">SteamInventory</div>
+      <div className="header-site-name"></div>
       {/* Кнопка для открытия сайдбара */}
       <button
         className={`header-sidebar-toggle ${isSidebarOpen ? "open" : ""}`}
