@@ -13,6 +13,22 @@ code {
     monospace;
 }
 
+/* Стили для полосы прокрутки */
+::-webkit-scrollbar {
+  width: 10px; /* Ширина полосы прокрутки */
+}
+
+/* Стили для ползунка (бегунка) */
+::-webkit-scrollbar-thumb {
+  background-color: #5e16a7; /* Цвет ползунка */
+  border-radius: 0px; /* Закругление углов ползунка */
+}
+
+/* стили для трека (фон) */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Цвет фона трека */
+}
+
 /* Header.css */
 
 /* Основные стили для header */
