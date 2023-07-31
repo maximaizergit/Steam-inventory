@@ -7,6 +7,12 @@ interface FormData {
   password: string;
   name?: string;
 }
+
+interface ApiResponse {
+  access_token: string; // Здесь указываем ожидаемые свойства ответа сервера
+  // Добавьте другие свойства ответа, если они присутствуют
+}
+
 const endpointUrl = process.env.REACT_APP_ENDPOINT_URL;
 
 const AuthPage = () => {
@@ -17,16 +23,20 @@ const AuthPage = () => {
   });
   const [isFlipped, setIsFlipped] = useState(false);
 
+  // В функции authenticateUser укажите тип ответа сервера как ApiResponse
   const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
     const apiUrl = isLoginForm
       ? endpointUrl + "/signin"
       : endpointUrl + "/signup";
 
     axios
-      .post(apiUrl, formData)
+      .post<ApiResponse>(apiUrl, formData) // Укажите тип данных для axios.post
       .then((response) => {
         // Handle successful response from the backend
         console.log(response.data);
+        if (isLoginForm) {
+          localStorage.setItem("accessToken", response.data.access_token);
+        }
       })
       .catch((error) => {
         console.log(apiUrl);
