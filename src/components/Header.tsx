@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../style/Header.css";
+import { isUserAuthenticated } from "../helpers/Auth";
 
 const Header: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const isAuthenticated = isUserAuthenticated(); // Проверяем наличие токена при загрузке страницы
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+
+  const handleLogout = () => {
+    // Здесь добавьте логику для выхода из учетной записи, например, удаление токена из localStorage
+    // и перенаправление на страницу авторизации
+    localStorage.removeItem("accessToken");
+    window.location.href = "/login";
+  };
+
   return (
     <header>
       <Link to="/">
@@ -26,40 +36,52 @@ const Header: React.FC = () => {
       </button>
       <div className={`header-buttons ${isSidebarOpen ? "hide-buttons" : ""}`}>
         {/* Кнопки для перехода на страницу инвентаря и quicksell */}
-        <a className="header-button" href="/home">
-          Инвентарь
-        </a>
-        <a className="header-button" href="/quicksell">
-          Quicksell
-        </a>
+        {isAuthenticated && (
+          <>
+            <a className="header-button" href="/home">
+              Инвентарь
+            </a>
+            <a className="header-button" href="/quicksell">
+              Quicksell
+            </a>
+          </>
+        )}
       </div>
-      <a className="header-auth-button" href="/login">
+      {/* Дропдаун с пунктами профиль, войти и выйти */}
+      <div className={`header-auth-dropdown ${isSidebarOpen ? "hide-buttons" : ""}`}>
         <div className="header-auth"></div>
-      </a>
+        <div className="auth-dropdown-content">
+          {isAuthenticated ? (
+            <>
+              <Link to="/profile">Профиль</Link>
+              <button onClick={handleLogout}>Выйти</button>
+            </>
+          ) : (
+            <Link to="/login">Войти</Link>
+          )}
+        </div>
+      </div>
       {/* Сайдбар */}
       {isSidebarOpen && (
         <div className="sidebar">
-          <a
-            href="/inventory"
-            className="sidebar-link"
-            onClick={handleSidebarToggle}
-          >
-            Инвентарь
-          </a>
-          <a
-            href="/quicksell"
-            className="sidebar-link"
-            onClick={handleSidebarToggle}
-          >
-            Quicksell
-          </a>
-          <a
-            href="/login"
-            className="sidebar-link"
-            onClick={handleSidebarToggle}
-          >
-            Войти
-          </a>
+          {isAuthenticated && (
+            <>
+              <a href="/inventory" className="sidebar-link" onClick={handleSidebarToggle}>
+                Инвентарь
+              </a>
+              <a href="/quicksell" className="sidebar-link" onClick={handleSidebarToggle}>
+                Quicksell
+              </a>
+             <span onClick={handleLogout} className="sidebar-link">
+                Выйти
+             </span>
+            </>
+          )}
+          {!isAuthenticated && (
+            <a href="/login" className="sidebar-link" onClick={handleSidebarToggle}>
+              Войти
+            </a>
+          )}
         </div>
       )}
     </header>

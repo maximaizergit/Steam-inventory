@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
 import "../style/AuthPage.css";
+import { handleSuccessfulAuth } from "../helpers/Auth";
 interface FormData {
   email: string;
   password: string;
@@ -10,7 +11,6 @@ interface FormData {
 
 interface ApiResponse {
   access_token: string; // Здесь указываем ожидаемые свойства ответа сервера
-  // Добавьте другие свойства ответа, если они присутствуют
 }
 
 const endpointUrl = process.env.REACT_APP_ENDPOINT_URL;
@@ -23,27 +23,34 @@ const AuthPage = () => {
   });
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // В функции authenticateUser укажите тип ответа сервера как ApiResponse
-  const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
-    const apiUrl = isLoginForm
-      ? endpointUrl + "/signin"
-      : endpointUrl + "/signup";
+ const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
+  const apiUrl = isLoginForm ? endpointUrl + "/signin" : endpointUrl + "/signup";
 
-    axios
-      .post<ApiResponse>(apiUrl, formData) // Укажите тип данных для axios.post
-      .then((response) => {
-        // Handle successful response from the backend
-        console.log(response.data);
-        if (isLoginForm) {
-          localStorage.setItem("accessToken", response.data.access_token);
-        }
-      })
-      .catch((error) => {
-        console.log(apiUrl);
-        console.log(formData);
-        console.error(error);
-      });
-  };
+  const accessToken = localStorage.getItem('accessToken');
+
+  // Если токен есть, добавляем заголовок Authorization
+  const config = accessToken
+    ? { headers: { Authorization: `Bearer ${accessToken}` } }
+    : {};
+
+  axios
+    .post<ApiResponse>(apiUrl, formData, config)
+    .then((response) => {
+      console.log("form data "+formData)
+      console.log(response.data);
+      if (isLoginForm || response.data.access_token) {
+        handleSuccessfulAuth(response.data.access_token);
+      }else{
+        handleToggleForm();
+        alert("Успешно зарегестрирован")
+      }
+    })
+    .catch((error) => {
+      console.log(apiUrl);
+      console.log(formData);
+      console.error(error);
+    });
+};
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

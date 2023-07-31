@@ -11,6 +11,7 @@ header {
   background-color: #5e16a7;
   padding: 0 20px;
   color: #fff;
+  position: relative; /* Добавляем позиционирование */
 }
 
 .header-logo {
@@ -32,6 +33,7 @@ header a {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-right: auto; /* Устанавливаем отступ справа, чтобы кнопка оставалась на скраю */
 }
 
 .header-button {
@@ -43,7 +45,7 @@ header a {
 }
 
 .header-sidebar-toggle {
-  display: none; /* По умолчанию скрыта */
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -81,8 +83,19 @@ header a {
     display: none; /* Скрываем кнопки */
   }
 
-  .header-sidebar-toggle {
-    display: block; /* Показываем кнопку для открытия сайдбара */
+ .header-sidebar-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute; /* Добавляем позиционирование */
+    right: 20px; /* Устанавливаем кнопку в правый верхний угол */
+    top: calc(50% - 10px); /* Выравниваем кнопку по вертикали */
   }
 
   .hide-buttons .header-buttons {
@@ -108,7 +121,8 @@ header a {
   }
 
   .sidebar-link {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    height: auto;
     cursor: pointer;
     text-decoration: none; /* Убираем стили ссылки */
     color: #fff; /* Цвет текста */
@@ -146,4 +160,54 @@ header a {
   .open .burger-icon:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg); /* Вращаем нижний "гамбургер" */
   }
+}
+
+@media (min-width: 701px) {
+  /* Дополнительные стили для авторизованных пользователей */
+  .header-auth-dropdown {
+    position: relative;
+  }
+
+  .header-auth {
+    width: 50px;
+    height: 50px;
+    background-image: url("../../public/userIcon.avif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+  }
+
+  .auth-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #40116e;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .header-auth-dropdown:hover .auth-dropdown-content {
+    display: block;
+  }
+
+  .auth-dropdown-content a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+  }
+
+  .auth-dropdown-content button {
+    display: block;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+}
+.auth-dropdown-content{
+  display: none;
 }
