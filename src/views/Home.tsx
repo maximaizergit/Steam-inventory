@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "../Layout/Layout";
-import MenuBlock from "../components/MenuBlock";
+import MenuBlock from "../components/HomePage/MenuBlock";
 import { isUserAuthenticated } from "../helpers/Auth";
-
 
 const HomePage = () => {
   useEffect(() => {
