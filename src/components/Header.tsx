@@ -48,7 +48,11 @@ const Header: React.FC = () => {
         )}
       </div>
       {/* Дропдаун с пунктами профиль, войти и выйти */}
-      <div className={`header-auth-dropdown ${isSidebarOpen ? "hide-buttons" : ""}`}>
+      <div
+        className={`header-auth-dropdown ${
+          isSidebarOpen ? "hide-buttons" : ""
+        }`}
+      >
         <div className="header-auth"></div>
         <div className="auth-dropdown-content">
           {isAuthenticated ? (
@@ -66,19 +70,38 @@ const Header: React.FC = () => {
         <div className="sidebar">
           {isAuthenticated && (
             <>
-              <a href="/inventory" className="sidebar-link" onClick={handleSidebarToggle}>
+              <a
+                href="/inventory"
+                className="sidebar-link"
+                onClick={handleSidebarToggle}
+              >
                 Инвентарь
               </a>
-              <a href="/quicksell" className="sidebar-link" onClick={handleSidebarToggle}>
+              <a
+                href="/profile"
+                className="sidebar-link"
+                onClick={handleSidebarToggle}
+              >
+                Профиль
+              </a>
+              <a
+                href="/quicksell"
+                className="sidebar-link"
+                onClick={handleSidebarToggle}
+              >
                 Quicksell
               </a>
-             <span onClick={handleLogout} className="sidebar-link">
+              <span onClick={handleLogout} className="sidebar-link">
                 Выйти
-             </span>
+              </span>
             </>
           )}
           {!isAuthenticated && (
-            <a href="/login" className="sidebar-link" onClick={handleSidebarToggle}>
+            <a
+              href="/login"
+              className="sidebar-link"
+              onClick={handleSidebarToggle}
+            >
               Войти
             </a>
           )}
