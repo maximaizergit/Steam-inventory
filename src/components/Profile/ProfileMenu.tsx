@@ -1,5 +1,7 @@
 // ProfileMenu.tsx
-import React from "react";
+import React, { useState } from "react";
+import styles from "../../style/Profile/ProfileMenu.module.css";
+import { BsChevronDown } from "react-icons/bs";
 
 interface ProfileMenuProps {
   setActiveMenuItem: (item: string) => void;
@@ -13,21 +15,66 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   const menuItems = [
     { id: "profile", label: "Профиль" },
     { id: "general", label: "Общие настройки" },
-    { id: "other", label: "Другие настройки" },
+    { id: "other", label: "Прочее" },
     // Добавьте здесь другие пункты меню при необходимости
   ];
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleToggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleMenuItemClick = (item: string) => {
+    setActiveMenuItem(item);
+    setMenuOpen(false); // Закрываем меню после выбора пункта
+  };
+  // Функция для получения label по id пункта
+  const getMenuItemLabel = (itemId: string) => {
+    const menuItem = menuItems.find((item) => item.id === itemId);
+    return menuItem ? menuItem.label : "";
+  };
+
   return (
-    <div className="profile-menu">
-      {menuItems.map((item) => (
+    <div className={styles["profile-menu"]}>
+      {/* В PC версии отображаем просто кнопки */}
+      <div className={styles["profile-menu-buttons"]}>
+        {menuItems.map((item) => (
+          <div
+            key={item.id}
+            className={`${styles["menu-item"]} ${
+              activeMenuItem === item.id ? styles["active"] : ""
+            }`}
+            onClick={() => handleMenuItemClick(item.id)}
+          >
+            {item.label}
+          </div>
+        ))}
+      </div>
+      {/* В мобильной версии добавляем дропдаун */}
+      <div className={styles["profile-menu-dropdown"]}>
         <div
-          key={item.id}
-          className={`menu-item ${activeMenuItem === item.id ? "active" : ""}`}
-          onClick={() => setActiveMenuItem(item.id)}
+          className={styles["profile-menu-toggle"]}
+          onClick={handleToggleMenu}
         >
-          {item.label}
+          {getMenuItemLabel(activeMenuItem)} <BsChevronDown />
         </div>
-      ))}
+        {menuOpen && (
+          <div className={styles["menu-dropdown"]}>
+            {menuItems.map((item) => (
+              <div
+                key={item.id}
+                className={`${styles["menu-item"]} ${
+                  activeMenuItem === item.id ? styles["active"] : ""
+                }`}
+                onClick={() => handleMenuItemClick(item.id)}
+              >
+                {item.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

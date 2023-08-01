@@ -1,0 +1,23 @@
+/* Profile.module.css */
+.profile-container {
+  display: flex;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  height: 100vh;
+  margin-bottom: 120px;
+  @media (max-width: 700px) {
+    flex-direction: column; /* Меняем направление на колонку на мобильной версии */
+    padding: 0;
+  }
+}
+
+.profile-content-container {
+  flex: 1;
+  padding: 20px;
+  @media (max-width: 700px) {
+    padding: 0;
+    width: 100%;
+  }
+}

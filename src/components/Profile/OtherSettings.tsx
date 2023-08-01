@@ -1,9 +1,10 @@
 // OtherContent.tsx
 import React from "react";
+import "../../style/Profile/OtherSettings.css";
 
 const OtherSettings = () => {
   return (
-    <div className="other-content">
+    <div className="other-settings">
       {/* Здесь разместите другие настройки */}
       {/* Например: */}
       <h2>Другие настройки</h2>

@@ -6,7 +6,8 @@ import ProfileSettings from "../components/Profile/ProfileSettings";
 import GeneralSettings from "../components/Profile/GeneralSettings";
 import OtherSettings from "../components/Profile/OtherSettings";
 import axios from "axios";
-//import "../style/Profile.css";
+import styles from "../style/Profile/Profile.module.css";
+import { handleError } from "../helpers/ToastEvents";
 
 const endpointUrl = process.env.REACT_APP_ENDPOINT_URL;
 
@@ -32,6 +33,7 @@ const getUserInfo = () => {
     })
     .catch((error) => {
       console.error("Error fetching user info:", error);
+      handleError(error.toString());
     });
 };
 
@@ -60,12 +62,16 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="profile-container">
+      <div className={styles["profile-container"]}>
+        {" "}
+        {/* Применяем стиль из CSS модуля */}
         <ProfileMenu
           setActiveMenuItem={setActiveMenuItem}
           activeMenuItem={activeMenuItem}
         />
-        <div className="profile-content-container">{renderContent()}</div>
+        <div className={styles["profile-content-container"]}>
+          {renderContent()}
+        </div>
       </div>
     </Layout>
   );
