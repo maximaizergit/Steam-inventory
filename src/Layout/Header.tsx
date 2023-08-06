@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../style/Header.css";
 import { isUserAuthenticated } from "../helpers/Auth";
+import { applyThemeStyles, getInitialTheme } from "../helpers/ThemeSwitcher";
 
 const Header: React.FC = () => {
+  const [theme, setTheme] = useState<string>(() => getInitialTheme());
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const isAuthenticated = isUserAuthenticated(); // Проверяем наличие токена при загрузке страницы
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+  const selectedTheme = localStorage.getItem("theme") || "default";
 
+  // Устанавливаем стили в зависимости от выбранной темы
+
+  applyThemeStyles(selectedTheme);
   const handleLogout = () => {
     // Здесь добавьте логику для выхода из учетной записи, например, удаление токена из localStorage
     // и перенаправление на страницу авторизации
@@ -48,8 +54,14 @@ const Header: React.FC = () => {
         )}
       </div>
       {/* Дропдаун с пунктами профиль, войти и выйти */}
-      <div className={`header-auth-dropdown ${isSidebarOpen ? "hide-buttons" : ""}`}>
-        <div className="header-auth"></div>
+      <div
+        className={`header-auth-dropdown ${
+          isSidebarOpen ? "hide-buttons" : ""
+        }`}
+      >
+        <div
+          className={`header-auth ${theme === "dark" ? "dark" : "light"}`}
+        ></div>
         <div className="auth-dropdown-content">
           {isAuthenticated ? (
             <>
@@ -66,19 +78,38 @@ const Header: React.FC = () => {
         <div className="sidebar">
           {isAuthenticated && (
             <>
-              <a href="/inventory" className="sidebar-link" onClick={handleSidebarToggle}>
+              <a
+                href="/inventory"
+                className="sidebar-link"
+                onClick={handleSidebarToggle}
+              >
                 Инвентарь
               </a>
-              <a href="/quicksell" className="sidebar-link" onClick={handleSidebarToggle}>
+              <a
+                href="/profile"
+                className="sidebar-link"
+                onClick={handleSidebarToggle}
+              >
+                Профиль
+              </a>
+              <a
+                href="/quicksell"
+                className="sidebar-link"
+                onClick={handleSidebarToggle}
+              >
                 Quicksell
               </a>
-             <span onClick={handleLogout} className="sidebar-link">
+              <span onClick={handleLogout} className="sidebar-link">
                 Выйти
-             </span>
+              </span>
             </>
           )}
           {!isAuthenticated && (
-            <a href="/login" className="sidebar-link" onClick={handleSidebarToggle}>
+            <a
+              href="/login"
+              className="sidebar-link"
+              onClick={handleSidebarToggle}
+            >
               Войти
             </a>
           )}

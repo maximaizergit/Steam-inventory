@@ -1,0 +1,86 @@
+/* ProfileMenu.module.css */
+.profile-menu {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.menu-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  transform: translateX(0);
+  transition: transform 0.3s;
+}
+
+.menu-item.active {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  transform: translateX(10px);
+}
+
+.profile-menu-dropdown {
+  display: none;
+}
+
+/* Стили для мобильной версии */
+@media (max-width: 700px) {
+  .profile-menu-buttons {
+    display: none; /* Скрываем кнопки на мобильной версии */
+  }
+
+  .profile-menu-dropdown {
+    display: block;
+    position: relative;
+  }
+  .profile-menu {
+    width: 100%; /* Занимаем всю ширину родительского контейнера */
+    box-sizing: border-box; /* Учтем отступы и паддинги внутри элемента */
+  }
+  .menu-item {
+    width: 90%;
+  }
+  .menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%; /* Занимаем всю ширину родительского контейнера */
+    background-color: var(--background-color);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .profile-menu.open .menu-dropdown {
+    display: block;
+  }
+
+  .menu-dropdown .menu-item {
+    display: block;
+  }
+
+  .profile-menu-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 10px;
+    cursor: pointer;
+
+    border: none;
+  }
+
+  .profile-menu-toggle > svg {
+    transition: transform 0.3s;
+  }
+
+  /* Скрываем иконку стрелочки вниз при открытом меню */
+  .profile-menu.open .profile-menu-toggle > svg {
+    transform: rotate(180deg);
+  }
+}

@@ -3,6 +3,7 @@ import Layout from "../Layout/Layout";
 import axios from "axios";
 import "../style/AuthPage.css";
 import { handleSuccessfulAuth } from "../helpers/Auth";
+import { handleError } from "../helpers/ToastEvents";
 interface FormData {
   email: string;
   password: string;
@@ -10,6 +11,7 @@ interface FormData {
 }
 
 interface ApiResponse {
+  Error: string;
   access_token: string; // Здесь указываем ожидаемые свойства ответа сервера
 }
 
@@ -23,40 +25,49 @@ const AuthPage = () => {
   });
   const [isFlipped, setIsFlipped] = useState(false);
 
- const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
-  const apiUrl = isLoginForm ? endpointUrl + "/signin" : endpointUrl + "/signup";
+  const authenticateUser = (isLoginForm: boolean, formData: FormData) => {
+    const apiUrl = isLoginForm
+      ? endpointUrl + "/signin"
+      : endpointUrl + "/signup";
 
-  const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
 
-  // Если токен есть, добавляем заголовок Authorization
-  const config = accessToken
-    ? { headers: { Authorization: `Bearer ${accessToken}` } }
-    : {};
+    // Если токен есть, добавляем заголовок Authorization
+    const config = accessToken
+      ? { headers: { Authorization: `Bearer ${accessToken}` } }
+      : {};
 
-  axios
-    .post<ApiResponse>(apiUrl, formData, config)
-    .then((response) => {
-      console.log("form data "+formData)
-      console.log(response.data);
-      if (isLoginForm || response.data.access_token) {
-        handleSuccessfulAuth(response.data.access_token);
-      }else{
-        handleToggleForm();
-        alert("Успешно зарегестрирован")
-      }
-    })
-    .catch((error) => {
-      console.log(apiUrl);
-      console.log(formData);
-      console.error(error);
-    });
-};
+    axios
+      .post<ApiResponse>(apiUrl, formData, config)
+      .then((response) => {
+        console.log("form data " + formData);
+        console.log(response.data);
+        if (isLoginForm && response.data.access_token) {
+          handleSuccessfulAuth(response.data.access_token);
+        } else if (!isLoginForm) {
+          handleToggleForm();
+          alert("Успешно зарегестрирован");
+        }
+      })
+      .catch((error) => {
+        console.log(apiUrl);
+        console.log(formData);
+        console.error(error);
+        handleError(error.toString());
+      });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!isLoginForm && (!formData.name || formData.name.trim() === "")) {
-      alert("Пожалуйста, введите ваше имя.");
+    if (
+      (!isLoginForm && (!formData.name || formData.name.trim() === "")) ||
+      !formData.email ||
+      formData.email.trim() === "" ||
+      !formData.password ||
+      formData.password.trim() === ""
+    ) {
+      handleError("Проверьте введеные данные");
       return;
     }
     const formDataToSend = isLoginForm
