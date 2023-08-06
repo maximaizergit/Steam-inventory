@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../style/Header.css";
 import { isUserAuthenticated } from "../helpers/Auth";
+import { applyThemeStyles, getInitialTheme } from "../helpers/ThemeSwitcher";
 
 const Header: React.FC = () => {
+  const [theme, setTheme] = useState<string>(() => getInitialTheme());
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const isAuthenticated = isUserAuthenticated(); // Проверяем наличие токена при загрузке страницы
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+  const selectedTheme = localStorage.getItem("theme") || "default";
 
+  // Устанавливаем стили в зависимости от выбранной темы
+
+  applyThemeStyles(selectedTheme);
   const handleLogout = () => {
     // Здесь добавьте логику для выхода из учетной записи, например, удаление токена из localStorage
     // и перенаправление на страницу авторизации
@@ -53,7 +59,9 @@ const Header: React.FC = () => {
           isSidebarOpen ? "hide-buttons" : ""
         }`}
       >
-        <div className="header-auth"></div>
+        <div
+          className={`header-auth ${theme === "dark" ? "dark" : "light"}`}
+        ></div>
         <div className="auth-dropdown-content">
           {isAuthenticated ? (
             <>

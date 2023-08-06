@@ -8,9 +8,9 @@ header {
   height: 10vh;
   min-height: 50px;
   max-height: 100px;
-  background-color: #5e16a7;
+  background-color: var(--primary-color);
   padding: 0 20px;
-  color: #fff;
+  color: var(--background-color);
   position: relative; /* Добавляем позиционирование */
 }
 
@@ -21,6 +21,10 @@ header {
   background-size: contain; /* Масштабирует изображение так, чтобы оно полностью поместилось в элементе */
   background-repeat: no-repeat; /* Запрещает повторение изображения */
   background-position: center center; /* Центрирует изображение по горизонтали и вертикали */
+}
+
+.header-logo.light {
+  background-image: url("../../public/appLogoDark.svg");
 }
 header a {
   height: 100%;
@@ -39,8 +43,8 @@ header a {
 .header-button {
   border-radius: 5px;
   padding: 10px 20px;
-  background-color: #fff;
-  color: #5e16a7;
+  background-color: var(--background-color);
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -55,22 +59,34 @@ header a {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #fff;
+  background-color: var(--background-color);
 }
 .header-auth-button {
   display: none; /* По умолчанию скрыта */
   width: 100px;
   height: 100%;
-  background-image: url("../../public/userIcon.avif");
+
   background-size: contain; /* Масштабирует изображение так, чтобы оно полностью поместилось в элементе */
   background-repeat: no-repeat; /* Запрещает повторение изображения */
   background-position: center center; /* Центрирует изображение по горизонтали и вертикали */
 }
-
+.sidebar {
+  display: none;
+}
 /* Стили для нормальных устройств (ширина экрана больше 400px) */
 @media (min-width: 701px) {
-  .header-auth-button {
+  .header-auth {
     display: block; /* Показываем кнопку для авторизации */
+    background-image: url("../../public/userIcon.avif");
+  }
+  /* Стиль для темной темы */
+  .header-auth.dark {
+    background-image: url("../../public/userIconLight.svg");
+  }
+
+  /* Стиль для светлой темы */
+  .header-auth.light {
+    background-image: url("../../public/userIcon.avif");
   }
 }
 /* Стили для мобильных устройств (ширина экрана меньше 400px) */
@@ -83,7 +99,7 @@ header a {
     display: none; /* Скрываем кнопки */
   }
 
- .header-sidebar-toggle {
+  .header-sidebar-toggle {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -110,12 +126,12 @@ header a {
     left: 0;
     width: 100%;
     height: calc(100vh - 10vh);
-    background-color: #5e16a7;
+    background-color: var(--secondary-color);
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Выравнивание элементов по верхнему краю */
     align-items: center;
-    color: #fff;
+    color: var(--background-color);
     font-size: 24px;
     z-index: 10;
   }
@@ -125,7 +141,7 @@ header a {
     height: auto;
     cursor: pointer;
     text-decoration: none; /* Убираем стили ссылки */
-    color: #fff; /* Цвет текста */
+    color: var(--background-color); /* Цвет текста */
   }
   .header-sidebar-toggle {
     display: flex; /* Показываем контейнер для "гамбургера" */
@@ -144,7 +160,7 @@ header a {
   .burger-icon {
     width: 100%;
     height: 3px;
-    background-color: #fff;
+    background-color: var(--background-color);
 
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
@@ -171,7 +187,6 @@ header a {
   .header-auth {
     width: 50px;
     height: 50px;
-    background-image: url("../../public/userIcon.avif");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -183,7 +198,7 @@ header a {
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #40116e;
+    background-color: var(--secondary-color);
     border-radius: 5px;
     padding: 10px;
   }
@@ -194,20 +209,20 @@ header a {
 
   .auth-dropdown-content a {
     display: block;
-    color: #fff;
+    color: var(--background-color);
     text-decoration: none;
     padding: 5px 10px;
   }
 
   .auth-dropdown-content button {
     display: block;
-    color: #fff;
+    color: var(--background-color);
     background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 5px 10px;
   }
 }
-.auth-dropdown-content{
+.auth-dropdown-content {
   display: none;
 }

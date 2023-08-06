@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "../../style/Profile/ProfileMenu.module.css";
 import { BsChevronDown } from "react-icons/bs";
+import { getInitialTheme } from "../../helpers/ThemeSwitcher";
 
 interface ProfileMenuProps {
   setActiveMenuItem: (item: string) => void;
@@ -20,7 +21,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [theme, setTheme] = useState<string>(() => getInitialTheme());
   const handleToggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -36,7 +37,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   };
 
   return (
-    <div className={styles["profile-menu"]}>
+    <div
+      className={`${styles["profile-menu"]} ${
+        theme === "dark" ? "dark" : "light"
+      }`}
+    >
       {/* В PC версии отображаем просто кнопки */}
       <div className={styles["profile-menu-buttons"]}>
         {menuItems.map((item) => (

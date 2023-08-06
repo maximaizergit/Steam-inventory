@@ -1,8 +1,8 @@
 /* Profile.module.css */
 .profile-container {
   display: flex;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color: var(--secondary-color);
+
   border-radius: 5px;
   padding: 20px;
   height: 100vh;

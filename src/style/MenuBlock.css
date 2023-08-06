@@ -2,7 +2,7 @@
 
 .menu-block {
   display: flex;
-  background-color: #5e16a7;
+  background-color: var(--primary-color);
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -30,8 +30,8 @@
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
-  background-color: #fff;
-  color: #5e16a7;
+  background-color: var(--background-color);
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -39,8 +39,8 @@
   width: 90%;
   margin: 10px;
   padding: 10px;
-  background-color: #4d1288;
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
   height: 0;
   opacity: 0;
 }

@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #30253b;
+  background-color: var(--secondary-color);
 }
 
 code {
@@ -20,11 +20,27 @@ code {
 
 /* Стили для ползунка (бегунка) */
 ::-webkit-scrollbar-thumb {
-  background-color: #5e16a7; /* Цвет ползунка */
+  background-color: var(--primary-color); /* Цвет ползунка */
   border-radius: 0px; /* Закругление углов ползунка */
 }
 
 /* стили для трека (фон) */
 ::-webkit-scrollbar-track {
   background-color: #f1f1f1; /* Цвет фона трека */
+}
+
+.css-ptiqhd-MuiSvgIcon-root {
+  width: 0.8em !important;
+  height: 0.8em !important;
+}
+.ProfileMenu_profile-menu__sPBrG.dark {
+  background-color: #ffff;
+}
+
+:root {
+  /* Default theme colors */
+  --primary-color: #5e16a7;
+  --secondary-color: #8a4bc1;
+  --background-color: #f8f9fa;
+  /* Add more CSS variables for other theme properties if needed */
 }

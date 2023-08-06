@@ -8,15 +8,32 @@ import OtherSettings from "../components/Profile/OtherSettings";
 import axios from "axios";
 import styles from "../style/Profile/Profile.module.css";
 import { handleError } from "../helpers/ToastEvents";
+import { useDispatch } from "react-redux"; // Импортируем хук useDispatch
+import { setUser } from "../redux/userSlice";
 
 const endpointUrl = process.env.REACT_APP_ENDPOINT_URL;
 
+var loading = true;
 interface ApiResponse {
-  Error: string;
-  access_token: string; // Здесь указываем ожидаемые свойства ответа сервера
+  timestamp: number;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    avatar: {
+      id: number;
+      user_id: number;
+      url: string;
+      created_at: string;
+      updated_at: string;
+    };
+    created_at: string;
+    updated_at: string;
+    simId: string;
+    status: string;
+  }[];
 }
-
-const getUserInfo = () => {
+const getUserInfo = (dispatch: any) => {
   const apiUrl = endpointUrl + "/getUserInfo";
   const accessToken = localStorage.getItem("accessToken");
 
@@ -30,6 +47,9 @@ const getUserInfo = () => {
     .then((response) => {
       console.log("User Info:");
       console.log(response.data);
+      // Вызываем действие setUser с тестовыми данными
+      dispatch(setUser(response.data.user[0]));
+      console.log("save to redux");
     })
     .catch((error) => {
       console.error("Error fetching user info:", error);
@@ -39,13 +59,15 @@ const getUserInfo = () => {
 
 const Profile = () => {
   const [activeMenuItem, setActiveMenuItem] = useState("profile");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (activeMenuItem === "profile") {
-      getUserInfo();
+    if (loading && activeMenuItem === "profile") {
+      getUserInfo(dispatch);
       console.log("sending req");
+      loading = false;
     }
-  }, [activeMenuItem]);
+  }, [activeMenuItem, dispatch]);
 
   const renderContent = () => {
     switch (activeMenuItem) {

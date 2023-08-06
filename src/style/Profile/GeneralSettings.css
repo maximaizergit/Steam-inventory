@@ -1,7 +1,25 @@
 /* GeneralSettings.module.css */
 .general-settings {
-  background-color: #f0f0f0;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
+}
+
+.general-settings h2 {
+  margin-top: 0;
+}
+
+.general-settings p {
+  margin-bottom: 20px;
+}
+
+.general-settings label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.general-settings select {
+  padding: 5px;
+  font-size: 16px;
 }

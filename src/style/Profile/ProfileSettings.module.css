@@ -1,0 +1,53 @@
+/* ProfileSettings.module.css */
+.profile-settings {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+/* ProfileSettings.module.css */
+
+.profile-settings h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.profile-settings label {
+  font-weight: bold;
+}
+
+.profile-settings div {
+  margin-bottom: 10px;
+}
+
+.profile-settings input {
+  width: 100%;
+  padding: 5px;
+  font-size: 18px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.profile-settings button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  border: none;
+  min-width: 100px;
+  min-height: 40px;
+  font-size: 16px;
+  border-radius: 3px;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+.profile-settings button:hover {
+  background-color: #0056b3;
+}
+
+.data {
+  font-size: 20px;
+}
