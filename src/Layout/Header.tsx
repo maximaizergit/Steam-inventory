@@ -5,7 +5,7 @@ import { isUserAuthenticated } from "../helpers/Auth";
 import { applyThemeStyles, getInitialTheme } from "../helpers/ThemeSwitcher";
 
 const Header: React.FC = () => {
-  const [theme, setTheme] = useState<string>(() => getInitialTheme());
+  const [theme] = useState<string>(() => getInitialTheme());
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const isAuthenticated = isUserAuthenticated(); // Проверяем наличие токена при загрузке страницы
 
@@ -27,7 +27,9 @@ const Header: React.FC = () => {
   return (
     <header>
       <Link to="/">
-        <div className="header-logo"></div>
+        <div
+          className={`header-logo ${theme === "dark" ? "dark" : "light"}`}
+        ></div>
       </Link>
       {/* Скрытое название сайта */}
       <div className="header-site-name"></div>

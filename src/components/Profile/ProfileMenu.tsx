@@ -21,7 +21,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<string>(() => getInitialTheme());
+  const [theme] = useState<string>(() => getInitialTheme());
   const handleToggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
